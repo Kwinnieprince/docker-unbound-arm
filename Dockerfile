@@ -1,7 +1,7 @@
 FROM resin/raspberry-pi-alpine:latest
 
 RUN apk update
-RUN apk add --no-cache ca-certificates openssl wget unbound
+RUN apk add --no-cache ca-certificates openssl curl unbound
 RUN rm -rf /var/cache/apk/*
 
 COPY config/unbound.conf /etc/unbound/unbound.conf
@@ -12,7 +12,7 @@ WORKDIR /etc/unbound
 USER unbound
 RUN unbound-anchor -a root.key ; true
 RUN unbound-control-setup
-RUN wget ftp://ftp.internic.net/domain/named.cache -O root.hints
+RUN curl ftp://ftp.internic.net/domain/named.cache -o root.hints
 
 USER root
 COPY entrypoint.sh /
@@ -25,4 +25,4 @@ VOLUME ["/etc/unbound"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-HEALTHCHECK CMD dig google.com || exit 1
+HEALTHCHECK CMD curl ifconfig.co || exit 1
