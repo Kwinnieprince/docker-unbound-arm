@@ -8,7 +8,7 @@ FROM easypi/alpine-arm:3.8
 RUN apk --update add --no-cache bash openssl unbound bind-tools
 
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=alpine /root/root.hints /etc/unbound/
+COPY --from=alpine /root/root.hints /etc/unbound/root.hints
 COPY config/unbound.conf /etc/unbound/unbound.conf
 
 RUN chown -R unbound:unbound /etc/unbound
