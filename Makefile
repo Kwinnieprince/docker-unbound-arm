@@ -15,11 +15,11 @@ deploy: build
 
 .PHONY: push
 push: tag build
-	docker push masnathan/unbound-arm:$(VERSION)
+	docker push masnathan/unbound-arm:$(NEXT_VERSION)
+	docker push masnathan/unbound-arm:latest
 
 .PHONY: tag
 tag:
 	git tag $(NEXT_VERSION)
-	git push
-
+	git push --tags
 
