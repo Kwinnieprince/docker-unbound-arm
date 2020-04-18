@@ -27,8 +27,8 @@ Unbound DNS resolver Docker image for ARM
 ⚠️ When you change the port, edit it in the dockerfile ⚠️
 
 ```
-docker build -t kwinnieprince/docker-unbound-arm:latest .
-docker run -p 5333:5333 kwinnieprince/docker-unbound-arm
+docker build -t kwintend/docker-unbound-arm:latest .
+docker run -p 5333:5333 kwintend/docker-unbound-arm
 ```
 
 ## Credits
