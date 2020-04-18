@@ -18,7 +18,7 @@ USER root
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 53/udp 53
+EXPOSE 5333
 EXPOSE 8953
 
 VOLUME ["/etc/unbound"]
