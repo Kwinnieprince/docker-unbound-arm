@@ -28,5 +28,8 @@ sed 's/{{CACHE_MAX_TTL}}/'"${CACHE_MAX_TTL}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{HIDE_IDENTITY}}/'"${HIDE_IDENTITY}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{HIDE_VERSION}}/'"${HIDE_VERSION}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{INTERFACE}}/'"${INTERFACE}"'/' -i /etc/unbound/unbound.conf
+sed 's/{{PORT}}/'"${PORT}"'/' -i /etc/unbound/unbound.conf
+sed 's/{{HARDEN_GLUE}}/'"${HARDEN_GLUE}"'/' -i /etc/unbound/unbound.conf
+
 
 exec unbound -c /etc/unbound/unbound.conf -d -v
