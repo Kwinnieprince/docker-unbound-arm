@@ -1,26 +1,20 @@
 #!/bin/bash
 
-DO_IPV6=${DO_IPV6:-no}
+DO_IPV6=${DO_IPV6:-yes}
 DO_IPV4=${DO_IPV4:-yes}
 DO_UDP=${DO_UDP:-yes}
 DO_TCP=${DO_TCP:-yes}
 VERBOSITY=${VERBOSITY:-0}
-NUM_THREADS=${NUM_THREADS:-4}
-SO_RCVBUFF=${SO_RCVBUFF:-0}
-SO_SNDBUF=${SO_SNDBUF:-0}
-SO_REUSEPORT=${SO_REUSEPORT:-yes}
-EDNS_BUFFER_SIZE=${EDNS_BUFFER_SIZE:-4096}
-MSG_CACHE_SIZE=${MSG_CACHE_SIZE:-50m}
-RRSET_CACHE_SIZE=${RRSET_CACHE_SIZE:-100m}
-CACHE_MIN_TTL=${CACHE_MIN_TTL:-900}
+NUM_THREADS=${NUM_THREADS:-1}
+EDNS_BUFFER_SIZE=${EDNS_BUFFER_SIZE:-1472}
+CACHE_MIN_TTL=${CACHE_MIN_TTL:-3600}
 CACHE_MAX_TTL=${CACHE_MAX_TTL:-86400}
-CACHE_MAX_NEGATIVE_TTL=${CACHE_MAX_NEGATIVE_TTL:-3600}
-HIDE_IDENTITY=${HIDE_IDENTITY:-no}
-HIDE_VERSION=${HIDE_VERSION:-no}
-STATISTICS_INTERVAL=${STATISTICS_INTERVAL:-0}
-STATISTICS_CUMULATIVE=${STATISTICS_CUMULATIVE:-no}
-EXTENDED_STATISTICS=${EXTENDED_STATISTICS:-no}
+HIDE_IDENTITY=${HIDE_IDENTITY:-yes}
+HIDE_VERSION=${HIDE_VERSION:-yes}
 INTERFACE=${INTERFACE:-0.0.0.0}
+PORT=${PORT:-5333}
+HARDEN_GLUE=${HARDEN_GLUE:-yes}
+
 
 sed 's/{{DO_IPV6}}/'"${DO_IPV6}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{DO_IPV4}}/'"${DO_IPV4}"'/' -i /etc/unbound/unbound.conf
@@ -28,20 +22,11 @@ sed 's/{{DO_UDP}}/'"${DO_UDP}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{DO_TCP}}/'"${DO_TCP}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{VERBOSITY}}/'"${VERBOSITY}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{NUM_THREADS}}/'"${NUM_THREADS}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{SO_RCVBUFF}}/'"${SO_RCVBUFF}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{SO_SNDBUF}}/'"${SO_SNDBUF}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{SO_REUSEPORT}}/'"${SO_REUSEPORT}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{EDNS_BUFFER_SIZE}}/'"${EDNS_BUFFER_SIZE}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{MSG_CACHE_SIZE}}/'"${MSG_CACHE_SIZE}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{RRSET_CACHE_SIZE}}/'"${RRSET_CACHE_SIZE}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{CACHE_MIN_TTL}}/'"${CACHE_MIN_TTL}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{CACHE_MAX_TTL}}/'"${CACHE_MAX_TTL}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{CACHE_MAX_NEGATIVE_TTL}}/'"${CACHE_MAX_NEGATIVE_TTL}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{HIDE_IDENTITY}}/'"${HIDE_IDENTITY}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{HIDE_VERSION}}/'"${HIDE_VERSION}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{STATISTICS_INTERVAL}}/'"${STATISTICS_INTERVAL}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{STATISTICS_CUMULATIVE}}/'"${STATISTICS_CUMULATIVE}"'/' -i /etc/unbound/unbound.conf
-sed 's/{{EXTENDED_STATISTICS}}/'"${EXTENDED_STATISTICS}"'/' -i /etc/unbound/unbound.conf
 sed 's/{{INTERFACE}}/'"${INTERFACE}"'/' -i /etc/unbound/unbound.conf
 
 exec unbound -c /etc/unbound/unbound.conf -d -v
